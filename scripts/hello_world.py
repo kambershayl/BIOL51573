@@ -1,2 +1,4 @@
 #!/usr/bin/env python3
-print ("Hello world")
+
+name = input("Enter your name: ")
+print ("Hello " + name)
