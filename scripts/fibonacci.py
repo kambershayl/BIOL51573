@@ -30,6 +30,7 @@ def get_args():
 
     # parse the arguments
     args = parser.parse_args()
+    return args
 
     print("#!/bin/bash")
     print(f"#SBATCH --job-name={args.job_name}")
@@ -49,6 +50,7 @@ def get_args():
     print("cd $SLURM_SUBMIT_DIR")
 
 
+
     # prompt the user for position in the Fibonacci sequence
     # position = input("please enter a position:")
 
@@ -57,22 +59,30 @@ def fib():
     # initialize two integers
     a,b = 0,1
 
-    for i in range(int(args.position)):
+    for i in range(int(beyonce.position)):
         a,b = b, a + b
 
     fibonacci_number = a
-
+    return fibonacci_number
 
 ## function to print the output
 # do not write "print" or other standard function names
-def print_output():
-    if args.verbose:
-        print(f"the fibonacci number for {args.position} is {fibonacci_number}")
+def print_output(output):
+    if beyonce.verbose:
+        print(f"the fibonacci number for {beyonce.position} is {output}")
     else: 
-        print(fibonacci_number)
+        print(output)
 
 ## define the main() function
 def main():
+    fibnum = fib()
+    print_output(fibnum)
+
+
+## calling get_args() happens out here on its own
+beyonce = get_args()
+
+
 
 # set the environment for the script
 # is this main (i.e., a standalone Python script), or 
