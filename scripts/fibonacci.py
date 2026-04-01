@@ -1,59 +1,82 @@
 #!/usr/bin/env python3
+
+# import any modules
 import argparse
 
-###------------- accept and parse command line arguments
-# create an argument parser object
-parser = argparse.ArgumentParser(description = "This script calculates the number at a given position in the Fibonacci sequence")
+# define any functions
+## function to define command line arguments
+def get_args():
 
 
-parser.add_argument("job_name", help = "The name you want to give this job")
-parser.add_argument("partition", help = "What partition (ex. Comp01)?")
-parser.add_argument("nodes", help ="number of nodes")
-parser.add_argument("qos", help = "qos is comp")
-parser.add_argument("cpus_per_task", help = "number of CPUs")
-parser.add_argument("time", help = "time in 0:00:00")
-parser.add_argument("mail_user", help = "the email to send job info to")
-# add a positional argument, in this case, the position in the Fibonacci sequence
-parser.add_argument("position", help = "Position in the Fibonacci sequence", type = int)
-# an optional argument for verbose output or not
-# if 'store_true', this means assign "True" if the optional argument is specified 
-# on the command line, so the default for 'store_true' is actually false
-parser.add_argument("-v","--verbose", help = "Print verbose output", action = 'store_true')
 
-# parse the arguments
-args = parser.parse_args()
-
-print("#!/bin/bash")
-print(f"#SBATCH --job-name={args.job_name}")
-print(f"#SBATCH --partition={args.partition}")
-print(f"#SBATCH --nodes={args.nodes}")
-print(f"#SBATCH --qos={args.qos}")
-print(f"#SBATCH --cpus-per-task={args.cpus_per_task}")
-print(f"#SBATCH --time={args.time}")
-print("#SBATCH --output=blast_%j.out")
-print("#SBATCH --error=blast_%j.err")
-print("#SBATCH --mail-type = all")
-print(f"#SBATCH --mail-user={args.mail_user}")
-
-print("export OMP_NUM_THREADS=32")
-print("module purge")
-print("module load intel/18.0.1 impi/18.0.1 mkl/18.0.1")
-print("cd $SLURM_SUBMIT_DIR")
+    ###------------- accept and parse command line arguments
+    # create an argument parser object
+    parser = argparse.ArgumentParser(description = "This script calculates the number at a given position in the Fibonacci sequence")
 
 
-# prompt the user for position in the Fibonacci sequence
-# position = input("please enter a position:")
+    parser.add_argument("job_name", help = "The name you want to give this job")
+    parser.add_argument("partition", help = "What partition (ex. Comp01)?")
+    parser.add_argument("nodes", help ="number of nodes")
+    parser.add_argument("qos", help = "qos is comp")
+    parser.add_argument("cpus_per_task", help = "number of CPUs")
+    parser.add_argument("time", help = "time in 0:00:00")
+    parser.add_argument("mail_user", help = "the email to send job info to")
+    # add a positional argument, in this case, the position in the Fibonacci sequence
+    parser.add_argument("position", help = "Position in the Fibonacci sequence", type = int)
+    # an optional argument for verbose output or not
+    # if 'store_true', this means assign "True" if the optional argument is specified 
+    # on the command line, so the default for 'store_true' is actually false
+    parser.add_argument("-v","--verbose", help = "Print verbose output", action = 'store_true')
+
+    # parse the arguments
+    args = parser.parse_args()
+
+    print("#!/bin/bash")
+    print(f"#SBATCH --job-name={args.job_name}")
+    print(f"#SBATCH --partition={args.partition}")
+    print(f"#SBATCH --nodes={args.nodes}")
+    print(f"#SBATCH --qos={args.qos}")
+    print(f"#SBATCH --cpus-per-task={args.cpus_per_task}")
+    print(f"#SBATCH --time={args.time}")
+    print("#SBATCH --output=blast_%j.out")
+    print("#SBATCH --error=blast_%j.err")
+    print("#SBATCH --mail-type = all")
+    print(f"#SBATCH --mail-user={args.mail_user}")
+
+    print("export OMP_NUM_THREADS=32")
+    print("module purge")
+    print("module load intel/18.0.1 impi/18.0.1 mkl/18.0.1")
+    print("cd $SLURM_SUBMIT_DIR")
 
 
-# initialize two integers
-a,b = 0,1
+    # prompt the user for position in the Fibonacci sequence
+    # position = input("please enter a position:")
 
-for i in range(int(args.position)):
-    a,b = b, a + b
+## function to get calculation
+def fib():
+    # initialize two integers
+    a,b = 0,1
 
-fibonacci_number = a
+    for i in range(int(args.position)):
+        a,b = b, a + b
 
-if args.verbose:
-    print(f"the fibonacci number for {args.position} is {fibonacci_number}")
-else: 
-    print(fibonacci_number)
+    fibonacci_number = a
+
+
+## function to print the output
+# do not write "print" or other standard function names
+def print_output():
+    if args.verbose:
+        print(f"the fibonacci number for {args.position} is {fibonacci_number}")
+    else: 
+        print(fibonacci_number)
+
+## define the main() function
+def main():
+
+# set the environment for the script
+# is this main (i.e., a standalone Python script), or 
+# is the module being called by another script?
+
+if __name__ == "__main__":
+    main()
