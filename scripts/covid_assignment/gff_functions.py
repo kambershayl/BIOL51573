@@ -68,10 +68,11 @@ def read_gff(gff_file, genome_sequence):
             # this isn't an incredibly important line. It just skips the row if it doesn't have 9 columns 
             # the code might not work if it runs into this issue
 
-            if cols[2] != "gene":  
-                continue
+            #if cols[2] != "gene":  
+            #    continue
             # I only want columns that are genes, not CDS or whatever else
             # I am saying if the 3rd column is not equal to gene, ignore it or "continue"
+            # but this isn't actually needed
 
             begin = int(cols[3])
             end = int(cols[4])
@@ -152,3 +153,4 @@ def write_output(features, output_file='covid_genes.fasta'):
 # .strip()
 # .startswith()
 # .open()
+# .replace()
